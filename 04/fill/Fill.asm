@@ -14,19 +14,43 @@
 // Put your code here.
 
 // Pseudocode:
-// blackens screen
-//
+// MAIN
+//    if KBD != 0
+//      goto BLACK  
+//    else 
+//      goto WHITE    
+// 
+// BLACK   // blackens the screen
 // addr = SCREEN
 // n = 8191
 // i = 0
-// LOOP
-//    if i > n goto END
+// DRAW
+//    if i > n goto MAIN
 //    RAM[addr] = -1
 //    addr = addr + 1
 //    i = i + 1
-//    goto LOOP
-// END
+//    goto DRAW
+// 
+// WHITE   // whitens the screen
+// addr = SCREEN
+// n = 8191
+// i = 0
+// CLEAR
+//    if i > n goto MAIN
+//    RAM[addr] = 0 
+//    addr = addr + 1
+//    i = i + 1
+//    goto CLEAR
 
+(MAIN)
+  @KBD
+  D=M
+  @BLACK
+  D;JNE
+  @WHITE
+  D;JEQ
+
+(BLACK)
   @SCREEN
   D=A
   @addr
@@ -37,12 +61,12 @@
   M=D
   @i
   M=0
-(LOOP)
+(DRAW)
   @i
   D=M
   @n
   D=D-M
-  @END
+  @MAIN
   D;JGT
   @addr
   A=M
@@ -51,13 +75,33 @@
   M=M+1
   @i
   M=M+1
-  @LOOP
-  0;JMP
-(END)
-  @END
+  @DRAW
   0;JMP
   
-// LOOP
-//   if KBD != 0
-//     
-//   goto LOOP
+(WHITE)
+  @SCREEN
+  D=A
+  @addr
+  M=D
+  @8191
+  D=A
+  @n
+  M=D
+  @i
+  M=0
+(CLEAR)
+  @i
+  D=M
+  @n
+  D=D-M
+  @MAIN
+  D;JGT
+  @addr
+  A=M
+  M=0
+  @addr
+  M=M+1
+  @i
+  M=M+1
+  @CLEAR
+  0;JMP
