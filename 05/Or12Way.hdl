@@ -13,5 +13,5 @@ CHIP Or12Way {
     Or(a=or7,  b=in[8],  out=or8);
     Or(a=or8,  b=in[9],  out=or9);
     Or(a=or9,  b=in[10], out=or10);
-    Or(a=or10, b=in[11], out=or11);
+    Or(a=or10, b=in[11], out=out);
 }
