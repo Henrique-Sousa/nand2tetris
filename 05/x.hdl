@@ -1,0 +1,40 @@
+CHIP x {
+  IN op, j1, j2, j3, zr, ng;
+
+  OUT out;
+
+  PARTS:
+
+    Not(in=j1, out=notj1);
+    Not(in=j2, out=notj2);
+    Not(in=j3, out=notj3);
+    Not(in=zr, out=notzr);
+    Not(in=ng, out=notng);
+    And5Way(in[0]=notj1, in[1]=notj2,  in[2]=j3,     in[3]=notzr,  in[4]=notng, out=and0);
+    And5Way(in[0]=notj1, in[1]=j2,     in[2]=notj3,  in[3]=zr,     in[4]=notng, out=and1);
+    And5Way(in[0]=notj1, in[1]=j2,     in[2]=j3,     in[3]=notzr,  in[4]=notng, out=and2);
+    And5Way(in[0]=notj1, in[1]=j2,     in[2]=j3,     in[3]=zr,     in[4]=notng, out=and3);
+    And5Way(in[0]=j1,    in[1]=notj2,  in[2]=notj3,  in[3]=notzr,  in[4]=ng,    out=and4);
+    And5Way(in[0]=j1,    in[1]=notj2,  in[2]=j3,     in[3]=notzr,  in[4]=notng, out=and5);
+    And5Way(in[0]=j1,    in[1]=notj2,  in[2]=j3,     in[3]=notzr,  in[4]=ng,    out=and6);
+    And5Way(in[0]=j1,    in[1]=j2,     in[2]=notj3,  in[3]=notzr,  in[4]=ng,    out=and7);
+    And5Way(in[0]=j1,    in[1]=j2,     in[2]=notj3,  in[3]=zr,     in[4]=notng, out=and8);
+    And5Way(in[0]=j1,    in[1]=j2,     in[2]=j3,     in[3]=notzr,  in[4]=notng, out=and9);
+    And5Way(in[0]=j1,    in[1]=j2,     in[2]=j3,     in[3]=notzr,  in[4]=ng,    out=and10);
+    And5Way(in[0]=j1,    in[1]=j2,     in[2]=j3,     in[3]=zr,     in[4]=notng, out=and11);
+    Or12Way(
+      in[0]=and0,
+      in[1]=and1,
+      in[2]=and2,
+      in[3]=and3,
+      in[4]=and4,
+      in[5]=and5,
+      in[6]=and6,
+      in[7]=and7,
+      in[8]=and8,
+      in[9]=and9,
+      in[10]=and10,
+      in[11]=and11,
+      out=or12out);
+    And(a=op, b=or12out, out=out);  
+}
