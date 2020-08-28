@@ -51,7 +51,8 @@ CHIP CPU {
     /* D register */
     Register(in=ALUout, load=Dload, out=Dout);
 
-    Mux16(a=Aout, b=inM, sel=instruction[12], out=toY);
+    And(a=instruction[15], b=instruction[12], out=opANDa);
+    Mux16(a=Aout, b=inM, sel=opANDa, out=toY);
     
     ALU(x=Dout, y=toY, 
       zx=instruction[11],
@@ -99,9 +100,9 @@ CHIP CPU {
     And(a=instruction[15], b=or12out, out=PCload);
 
     PC(in=Aout, load=PCload, inc=true, reset=reset, out[0..14]=pc);
-    /* inc sempre true? se nao:
-    Not(in=PCload, out=PCinc);
-    PC(in=Aout, load=PCload, inc=PCinc, */
+    /* inc sempre true? se nao:*/
+    //Not(in=PCload, out=PCinc);
+    //PC(in=Aout, load=PCload, inc=PCinc, reset=reset, out[0..14]=pc);
 
     And(a=instruction[15], b=instruction[3], out=writeM);
 
