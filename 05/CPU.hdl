@@ -40,48 +40,48 @@ CHIP CPU {
 
     PARTS:
 
-    Not(in=instruction[0], out=notOpcode);
+    Not(in=instruction[15], out=notOpcode);
     Mux16(a=ALUout, b=instruction, sel=notOpcode, out=toA);
 
-    Or(a=instruction[10], b=notOpcode, out=Aload);
+    Or(a=instruction[5], b=notOpcode, out=Aload);
     /* A register */
-    Register(in=toA, load=Aload, out=Aout, out[1..15]=addressM);
+    Register(in=toA, load=Aload, out=Aout, out[0..14]=addressM);
 
-    Or(a=instruction[11], b=notOpcode, out=Dload);
+    And(a=instruction[15], b=instruction[4], out=Dload);
     /* D register */
     Register(in=ALUout, load=Dload, out=Dout);
 
     Mux16(a=Aout, b=inM, sel=instruction[3], out=toY);
     
     ALU(x=Dout, y=toY, 
-      zx=instruction[4],
-      nx=instruction[5],
-      zy=instruction[6],
-      ny=instruction[7],
-       f=instruction[8],
-      no=instruction[9],
+      zx=instruction[11],
+      nx=instruction[10],
+      zy=instruction[9],
+      ny=instruction[8],
+       f=instruction[7],
+      no=instruction[6],
       out=outM,
       out=ALUout,
       zr=zr,
       ng=ng);
 
-    Not(in=instruction[13], out=notj1);
-    Not(in=instruction[14], out=notj2);
-    Not(in=instruction[15], out=notj3);
+    Not(in=instruction[2], out=notj1);
+    Not(in=instruction[1], out=notj2);
+    Not(in=instruction[0], out=notj3);
     Not(in=zr, out=notzr);
     Not(in=ng, out=notng);
-    And5Way(in[0]=notj1,  in[1]=notj2,  in[2]=instruction[15],     in[3]=notzr,  in[4]=notng, out=and0);
-    And5Way(in[0]=notj1,  in[1]=instruction[14],     in[2]=notj3,  in[3]=zr,     in[4]=notng, out=and1);
-    And5Way(in[0]=notj1,  in[1]=instruction[14],     in[2]=instruction[15],     in[3]=notzr,  in[4]=notng, out=and2);
-    And5Way(in[0]=notj1,  in[1]=instruction[14],     in[2]=instruction[15],     in[3]=zr,     in[4]=notng, out=and3);
-    And5Way(in[0]=instruction[13],     in[1]=notj2,  in[2]=notj3,  in[3]=notzr,  in[4]=ng,    out=and4);
-    And5Way(in[0]=instruction[13],     in[1]=notj2,  in[2]=instruction[15],     in[3]=notzr,  in[4]=notng, out=and5);
-    And5Way(in[0]=instruction[13],     in[1]=notj2,  in[2]=instruction[15],     in[3]=notzr,  in[4]=ng,    out=and6);
-    And5Way(in[0]=instruction[13],     in[1]=instruction[14],     in[2]=notj3,  in[3]=notzr,  in[4]=ng,    out=and7);
-    And5Way(in[0]=instruction[13],     in[1]=instruction[14],     in[2]=notj3,  in[3]=zr,     in[4]=notng, out=and8);
-    And5Way(in[0]=instruction[13],     in[1]=instruction[14],     in[2]=instruction[15],     in[3]=notzr,  in[4]=notng, out=and9);
-    And5Way(in[0]=instruction[13],     in[1]=instruction[14],     in[2]=instruction[15],     in[3]=notzr,  in[4]=ng,    out=and10);
-    And5Way(in[0]=instruction[13],     in[1]=instruction[14],     in[2]=instruction[15],     in[3]=zr,     in[4]=notng, out=and11);
+    And5Way(in[0]=notj1,          in[1]=notj2,          in[2]=instruction[0], in[3]=notzr,  in[4]=notng, out=and0);
+    And5Way(in[0]=notj1,          in[1]=instruction[1], in[2]=notj3,          in[3]=zr,     in[4]=notng, out=and1);
+    And5Way(in[0]=notj1,          in[1]=instruction[1], in[2]=instruction[0], in[3]=notzr,  in[4]=notng, out=and2);
+    And5Way(in[0]=notj1,          in[1]=instruction[1], in[2]=instruction[0], in[3]=zr,     in[4]=notng, out=and3);
+    And5Way(in[0]=instruction[2], in[1]=notj2,          in[2]=notj3,          in[3]=notzr,  in[4]=ng,    out=and4);
+    And5Way(in[0]=instruction[2], in[1]=notj2,          in[2]=instruction[0], in[3]=notzr,  in[4]=notng, out=and5);
+    And5Way(in[0]=instruction[2], in[1]=notj2,          in[2]=instruction[0], in[3]=notzr,  in[4]=ng,    out=and6);
+    And5Way(in[0]=instruction[2], in[1]=instruction[1], in[2]=notj3,          in[3]=notzr,  in[4]=ng,    out=and7);
+    And5Way(in[0]=instruction[2], in[1]=instruction[1], in[2]=notj3,          in[3]=zr,     in[4]=notng, out=and8);
+    And5Way(in[0]=instruction[2], in[1]=instruction[1], in[2]=instruction[0], in[3]=notzr,  in[4]=notng, out=and9);
+    And5Way(in[0]=instruction[2], in[1]=instruction[1], in[2]=instruction[0], in[3]=notzr,  in[4]=ng,    out=and10);
+    And5Way(in[0]=instruction[2], in[1]=instruction[1], in[2]=instruction[0], in[3]=zr,     in[4]=notng, out=and11);
     Or12Way(
       in[0]=and0,
       in[1]=and1,
@@ -96,13 +96,13 @@ CHIP CPU {
       in[10]=and10,
       in[11]=and11,
       out=or12out);
-    And(a=instruction[0], b=or12out, out=PCload);
+    And(a=instruction[15], b=or12out, out=PCload);
 
-    PC(in=Aout, load=PCload, inc=true, reset=reset, out[1..15]=pc);
+    PC(in=Aout, load=PCload, inc=true, reset=reset, out[0..14]=pc);
     /* inc sempre true? se nao:
     Not(in=PCload, out=PCinc);
     PC(in=Aout, load=PCload, inc=PCinc, */
 
-    And(a=instruction[0], b=instruction[12], out=writeM);
+    And(a=instruction[15], b=instruction[3], out=writeM);
 
 }
