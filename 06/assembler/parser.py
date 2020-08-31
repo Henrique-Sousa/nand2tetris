@@ -23,4 +23,8 @@ class Parser:
     def hasMoreCommands(self):
         return self.current_command != ''
 
-
+    def getCommandType(self):
+        if self.current_command.startswith('@'):
+            return 'A'
+        else:
+            return 'D'
