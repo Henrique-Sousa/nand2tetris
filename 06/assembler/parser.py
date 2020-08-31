@@ -8,9 +8,11 @@ class Parser:
     def advance(self):
         while True:
             newline = self.file.readline()
+            # checks if end of file
             if newline == '':
                 self.current_command = ''
                 return newline 
+            # skip white space and comments
             newline = newline.strip()
             if newline == '' or newline.startswith('//'):
                 continue
