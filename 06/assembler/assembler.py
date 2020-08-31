@@ -6,7 +6,8 @@ filename = sys.argv[1]
 parser = Parser(filename)
 
 while True:
-  if parser.current_command == '':
-    break
-  print(repr(parser.current_command))
-  parser.advance()
+    if parser.current_command == '':
+        break
+    print(repr(parser.current_command))
+    parser.advance()
+
