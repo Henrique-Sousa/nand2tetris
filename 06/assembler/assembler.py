@@ -5,9 +5,7 @@ from parser import Parser
 filename = sys.argv[1]
 parser = Parser(filename)
 
-while True:
-    if parser.current_command == '':
-        break
-    print(repr(parser.current_command))
+while parser.hasMoreCommands():
+    print(parser.current_command)
     parser.advance()
 

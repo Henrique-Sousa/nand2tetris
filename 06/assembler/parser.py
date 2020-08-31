@@ -18,4 +18,7 @@ class Parser:
                 self.current_command = newline
                 return
 
+    def hasMoreCommands(self):
+        return self.current_command != ''
+
 
