@@ -34,3 +34,11 @@ class Parser:
             return self.current_command.strip('@')
         else:
             return None
+
+    def dest(self):
+        if self.getCommandType() == 'D':
+            if '=' in self.current_command:
+                return self.current_command.split('=')[0]
+            else:
+                return ''
+
