@@ -6,6 +6,6 @@ filename = sys.argv[1]
 parser = Parser(filename)
 
 while parser.hasMoreCommands():
-    print(parser.getCommandType())
+    print(parser.number())
     parser.advance()
 

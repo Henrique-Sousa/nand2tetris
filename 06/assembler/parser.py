@@ -28,3 +28,9 @@ class Parser:
             return 'A'
         else:
             return 'D'
+
+    def number(self):
+        if self.getCommandType() == 'A':
+            return self.current_command.strip('@')
+        else:
+            return None
