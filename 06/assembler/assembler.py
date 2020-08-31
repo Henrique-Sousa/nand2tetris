@@ -1,7 +1,9 @@
 #!/usr/bin/python3
+import sys
 from parser import Parser
 
-parser = Parser('../add/Add.asm')
+filename = sys.argv[1]
+parser = Parser(filename)
 
 while True:
   if parser.current_command == '':
