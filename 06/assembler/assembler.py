@@ -10,6 +10,10 @@ while parser.hasMoreCommands():
     if parser.getCommandType() == 'A':
         print(Code.toBinary(parser.number(), 16))
     else:
-        print(parser.dest() + ' ' + parser.comp() + ' ' + parser.jump())
+        d = parser.dest() 
+        c = parser.comp() 
+        j = parser.jump()
+        dd = Code.dest(d)
+        print(dd + ' ' + c + ' ' + j)
     parser.advance()
 

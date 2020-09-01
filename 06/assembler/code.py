@@ -5,3 +5,14 @@ class Code:
         binint = bin(int(n))[2:]
         return binint.zfill(digits) 
 
+    @classmethod
+    def dest(self, symbol):
+        dest = 0
+        if 'M' in symbol:
+            dest += 1
+        if 'D' in symbol:
+            dest += 2
+        if 'A' in symbol:
+            dest += 4
+        return self.toBinary(dest, 3) 
+
