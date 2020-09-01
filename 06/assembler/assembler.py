@@ -14,7 +14,9 @@ while parser.hasMoreCommands():
         c = parser.comp() 
         j = parser.jump()
         dd = Code.dest(d)
+        cc = Code.comp(c)
         jj = Code.jump(j)
-        print(dd + ' ' + c + ' ' + jj)
+        out = "111" + cc + dd + jj
+        print(out)
     parser.advance()
 
