@@ -50,4 +50,10 @@ class Parser:
                 partial = self.current_command.split('=')[0]
             return partial.split(';')[0]
 
-
+    def jump(self):
+        if self.getCommandType() == 'D':
+            if ';' in self.current_command:
+                return self.current_command.split(';')[1]
+            else:
+                return ''
+        
