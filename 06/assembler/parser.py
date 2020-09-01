@@ -27,7 +27,7 @@ class Parser:
         if self.current_command.startswith('@'):
             return 'A'
         else:
-            return 'D'
+            return 'C'
 
     def number(self):
         if self.getCommandType() == 'A':
@@ -36,14 +36,14 @@ class Parser:
             return None
 
     def dest(self):
-        if self.getCommandType() == 'D':
+        if self.getCommandType() == 'C':
             if '=' in self.current_command:
                 return self.current_command.split('=')[0]
             else:
                 return ''
 
     def comp(self):
-        if self.getCommandType() == 'D':
+        if self.getCommandType() == 'C':
             if '=' in self.current_command:
                 partial = self.current_command.split('=')[1]
             else:
@@ -51,7 +51,7 @@ class Parser:
             return partial.split(';')[0]
 
     def jump(self):
-        if self.getCommandType() == 'D':
+        if self.getCommandType() == 'C':
             if ';' in self.current_command:
                 return self.current_command.split(';')[1]
             else:
