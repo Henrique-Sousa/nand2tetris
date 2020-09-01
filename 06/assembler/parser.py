@@ -42,3 +42,12 @@ class Parser:
             else:
                 return ''
 
+    def comp(self):
+        if self.getCommandType() == 'D':
+            if '=' in self.current_command:
+                partial = self.current_command.split('=')[1]
+            else:
+                partial = self.current_command.split('=')[0]
+            return partial.split(';')[0]
+
+

@@ -9,6 +9,6 @@ while parser.hasMoreCommands():
     if parser.getCommandType() == 'A':
         print(parser.number())
     else:
-        print(parser.dest())
+        print(parser.dest() + ' ' + parser.comp())
     parser.advance()
 
