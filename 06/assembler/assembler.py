@@ -8,7 +8,7 @@ parser = Parser(filename)
 
 while parser.hasMoreCommands():
     if parser.getCommandType() == 'A':
-        print(Code.toBinary(parser.number()))
+        print(Code.toBinary(parser.number(), 16))
     else:
         print(parser.dest() + ' ' + parser.comp() + ' ' + parser.jump())
     parser.advance()
