@@ -20,3 +20,5 @@ while parser.hasMoreCommands():
         print(out)
     parser.advance()
 
+del(parser)
+

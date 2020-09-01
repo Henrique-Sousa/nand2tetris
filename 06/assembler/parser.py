@@ -5,6 +5,9 @@ class Parser:
         self.current_command = '\n' 
         self.advance()
 
+    def __del__(self):
+        self.file.close()
+
     def advance(self):
         while True:
             newline = self.file.readline()
