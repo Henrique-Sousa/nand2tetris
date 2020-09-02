@@ -39,9 +39,6 @@ class SymbolTable():
         else:
             return False
     
-    def parseSymbol(self, string):
-        return string.strip('@')
-
     def getAddress(self, symbol):
         return self.table.get(symbol)
 
