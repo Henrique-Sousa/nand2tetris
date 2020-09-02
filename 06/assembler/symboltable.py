@@ -38,7 +38,9 @@ class SymbolTable():
             return True
         else:
             return False
-            
+    
+    def parseSymbol(self, string):
+        return string.strip('@')
 
 
 
