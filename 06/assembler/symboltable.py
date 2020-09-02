@@ -1,3 +1,5 @@
+import re
+
 class SymbolTable():
 
     def __init__(self):
@@ -30,5 +32,13 @@ class SymbolTable():
     def updateTable(symbol, address):
         return self.table.setdefault(symbol, address)
         
-        
+    def isSymbol(self, string):
+        content = string.strip('@')
+        if re.search('[A-Za-z]', content):
+            return True
+        else:
+            return False
+            
+
+
 
