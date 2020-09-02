@@ -2,3 +2,4 @@
 *.swo
 *.out
 __pycache__
+06/assembler/*.hack
