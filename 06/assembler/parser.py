@@ -1,3 +1,5 @@
+import re
+
 class Parser:
         
     def __init__(self, filename):
@@ -31,6 +33,9 @@ class Parser:
             return 'A'
         else:
             return 'C'
+
+    def isSymbol(self):
+        return bool(re.search('[A-Za-z]', self.current_command)) and self.getCommandType() == 'A'
 
     def address(self):
         if self.getCommandType() == 'A':

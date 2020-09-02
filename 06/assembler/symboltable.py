@@ -32,13 +32,6 @@ class SymbolTable():
     def updateTable(self, symbol, address):
         return self.table.setdefault(symbol, address)
         
-    def isSymbol(self, string):
-        content = string.strip('@')
-        if re.search('[A-Za-z]', content):
-            return True
-        else:
-            return False
-    
     def getAddress(self, symbol):
         return self.table.get(symbol)
 
