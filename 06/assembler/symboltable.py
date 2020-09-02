@@ -27,5 +27,8 @@ class SymbolTable():
                 'THAT'      :   '4'
         }
 
+    def updateTable(symbol, address):
+        return self.table.setdefault(symbol, address)
+        
         
 
