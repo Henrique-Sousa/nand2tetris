@@ -32,7 +32,7 @@ class Parser:
         else:
             return 'C'
 
-    def number(self):
+    def address(self):
         if self.getCommandType() == 'A':
             return self.current_command.strip('@')
         else:
