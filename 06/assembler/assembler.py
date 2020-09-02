@@ -5,14 +5,20 @@ from parser import Parser
 from code import Code
 from symboltable import SymbolTable;
 
+if len(sys.argv) == 1:
+    print('You need to pass an .asm file as an argument')
+    sys.exit() 
 filename = sys.argv[1]
+basename = os.path.basename(filename)
+if os.path.splitext(basename)[1] != '.asm':
+    print('The argument provided does not have the .asm extension')
+    sys.exit() 
 
 symbol_table = SymbolTable()
 
 parser = Parser(filename)
 
 current_directory = os.path.dirname(os.path.abspath(__file__))
-basename = os.path.basename(filename)
 outfilename = os.path.join(current_directory, os.path.splitext(basename)[0] + '.hack')
 outfile = open(outfilename, 'w')
 
