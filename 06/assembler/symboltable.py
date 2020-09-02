@@ -29,7 +29,7 @@ class SymbolTable():
                 'THAT'      :   '4'
         }
 
-    def updateTable(symbol, address):
+    def updateTable(self, symbol, address):
         return self.table.setdefault(symbol, address)
         
     def isSymbol(self, string):
