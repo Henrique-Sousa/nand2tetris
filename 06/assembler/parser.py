@@ -28,6 +28,12 @@ class Parser:
     def hasMoreCommands(self):
         return self.current_command != ''
 
+    def getLabel(self):
+        current_command = self.current_command.split('//')[0].strip() # removes end of line comments and white space
+        if current_command.startswith('('):
+            return current_command.strip('(').strip(')').strip()
+        return ''
+
     def getCommandType(self):
         if self.current_command.startswith('@'):
             return 'A'
