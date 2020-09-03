@@ -52,10 +52,11 @@ class Parser:
 
     def comp(self):
         if self.getCommandType() == 'C':
-            if '=' in self.current_command:
-                partial = self.current_command.split('=')[1]
+            command = self.current_command.split('//')[0].strip()
+            if '=' in command:
+                partial = command.split('=')[1]
             else:
-                partial = self.current_command.split('=')[0]
+                partial = command
             return partial.split(';')[0]
 
     def jump(self):
