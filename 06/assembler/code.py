@@ -21,13 +21,13 @@ class Code:
         'D|A'   :   '010101'
     }
 
-    @classmethod
-    def toBinary(self, n, digits):    # get an integer and convert it to binary
+    @staticmethod
+    def toBinary(n, digits):    # get an integer and convert it to binary
         binint = bin(int(n))[2:]
         return binint.zfill(digits) 
 
-    @classmethod
-    def dest(self, symbol):
+    @staticmethod
+    def dest(symbol):
         dest = 0
         if 'M' in symbol:
             dest += 1
@@ -35,10 +35,10 @@ class Code:
             dest += 2
         if 'A' in symbol:
             dest += 4
-        return self.toBinary(dest, 3) 
+        return Code.toBinary(dest, 3) 
 
-    @classmethod
-    def jump(self, symbol):
+    @staticmethod
+    def jump(symbol):
         jump = 0
         if 'G' in symbol:
             jump += 1
@@ -50,14 +50,14 @@ class Code:
             jump = 5
         if symbol == 'JMP':
             jump = 7
-        return self.toBinary(jump, 3)
+        return Code.toBinary(jump, 3)
 
-    @classmethod
-    def comp(self, symbol):
+    @staticmethod
+    def comp(symbol):
         comp = '0'
         if 'M' in symbol:
             symbol = symbol.replace('M', 'A')
             comp = '1'
-        comp += self.compTable[symbol]
+        comp += Code.compTable[symbol]
         return comp
 
