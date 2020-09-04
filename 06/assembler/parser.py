@@ -22,6 +22,8 @@ class Parser:
             if newline == '' or newline.startswith('//'):
                 continue
             else:
+                # removes end of line comments
+                newline = newline.split('//')[0].strip()  
                 self.current_command = newline
                 return
 
@@ -29,7 +31,7 @@ class Parser:
         return self.current_command != ''
 
     def getLabel(self):
-        current_command = self.current_command.split('//')[0].strip() # removes end of line comments and white space
+        current_command = self.current_command
         if current_command.startswith('('):
             return current_command.strip('(').strip(')').strip()
         return ''
@@ -58,7 +60,7 @@ class Parser:
 
     def comp(self):
         if self.getCommandType() == 'C':
-            command = self.current_command.split('//')[0].strip()
+            command = self.current_command
             if '=' in command:
                 partial = command.split('=')[1]
             else:
