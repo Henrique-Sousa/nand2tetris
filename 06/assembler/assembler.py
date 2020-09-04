@@ -16,6 +16,23 @@ if os.path.splitext(basename)[1] != '.asm':
 
 symbol_table = SymbolTable()
 
+
+# first pass
+
+parser = Parser(filename)
+current_line = 0
+while parser.hasMoreCommands():
+    label = parser.getLabel()
+    if label:
+       symbol_table.updateTable(label, current_line)
+    else:
+        current_line += 1
+    parser.advance()
+del(parser)
+
+
+# second pass
+
 parser = Parser(filename)
 
 current_directory = os.path.dirname(os.path.abspath(__file__))
@@ -25,7 +42,11 @@ outfile = open(outfilename, 'w')
 next_available_ram_address = '16'
 
 while parser.hasMoreCommands():
-    if parser.getCommandType() == 'A':
+    if parser.getLabel():
+        # if its a label, skip this line and go to next loop iteration
+        parser.advance()
+        continue
+    elif parser.getCommandType() == 'A':
         value = parser.address()
         if parser.isSymbol():
             # add new symbol to the table if it's not already there
